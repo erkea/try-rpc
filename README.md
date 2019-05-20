@@ -1,0 +1,2 @@
+# try-rpc
+rpc demo
