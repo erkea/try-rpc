@@ -10,6 +10,8 @@ import java.lang.reflect.Method;
  *
  */
 public class ProviderInvocation {
+	
+	private Long id;
 
 	private Class<?> type;
 	
@@ -22,10 +24,18 @@ public class ProviderInvocation {
 	 * @param method
 	 * @param args
 	 */
-	public ProviderInvocation(Class<?> type, Method method, Object[] args) {
+	public ProviderInvocation(Long id, Class<?> type, Method method, Object[] args) {
+		this.id = id;
 		this.type = type;
 		this.method = method;
 		this.args = args;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 
 	/**
