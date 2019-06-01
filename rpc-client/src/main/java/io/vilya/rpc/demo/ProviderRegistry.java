@@ -14,11 +14,11 @@ import io.vilya.rpc.demo.provider.LocationProviderImpl;
  */
 public class ProviderRegistry {
 
-	private ImmutableMap<Class<?>, Object> providers = ImmutableMap.<Class<?>, Object>builder()
-			.put(LocationProvider.class, new LocationProviderImpl())
+	private ImmutableMap<String, Object> providers = ImmutableMap.<String, Object>builder()
+			.put(LocationProvider.class.getName(), new LocationProviderImpl())
 			.build();
 	
-	public Object getObject(Class<?> type) {
+	public Object getObject(String type) {
 		return providers.get(type);
 	}
 	

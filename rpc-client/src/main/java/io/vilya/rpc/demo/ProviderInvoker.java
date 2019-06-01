@@ -4,6 +4,7 @@
 package io.vilya.rpc.demo;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * @author erkea <erkea@vilya.io>
@@ -20,8 +21,9 @@ public class ProviderInvoker {
 	public Object invoke(ProviderInvocation invocation) {
 		try {
 			Object object = registry.getObject(invocation.getType());
-			return invocation.getMethod().invoke(object, invocation.getArgs());
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			Method method = object.getClass().getMethod(invocation.getMethod());
+			return method.invoke(object, invocation.getArgs());
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
 			throw new RuntimeException(e); // TODO custom exception
 		}
 	}

@@ -33,8 +33,12 @@ public class ObjectEchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
     	if (msg instanceof ProviderInvocation) {
-    		Object ret = invoker.invoke((ProviderInvocation) msg);
-    		ctx.write(ret);
+            ProviderInvocation invocation = (ProviderInvocation) msg;
+    		Object ret = invoker.invoke(invocation);
+    		CallResponse callResponse = new CallResponse();
+            callResponse.setId(invocation.getId());
+            callResponse.setData(ret);
+    		ctx.write(callResponse);
     	} else {
     		ctx.fireChannelRead(msg);
     	}

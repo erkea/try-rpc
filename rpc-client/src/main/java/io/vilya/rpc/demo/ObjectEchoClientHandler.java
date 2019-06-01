@@ -15,7 +15,9 @@
  */
 package io.vilya.rpc.demo;
 
+import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ObjectEchoClientHandler extends ChannelInboundHandlerAdapter {

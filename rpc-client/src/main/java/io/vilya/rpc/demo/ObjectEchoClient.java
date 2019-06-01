@@ -28,10 +28,13 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import io.vilya.rpc.demo.consumer.TestService;
+import io.vilya.rpc.demo.consumer.TestServiceImpl;
 
-/**
- * Modification of {@link EchoClient} which utilizes Java object serialization.
- */
+import javax.net.ssl.SSLException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
+
 public final class ObjectEchoClient {
 
     static final boolean SSL = System.getProperty("ssl") != null;
@@ -40,11 +43,36 @@ public final class ObjectEchoClient {
     static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
     public static void main(String[] args) throws Exception {
+        Thread thread = new Thread(() -> {
+            try {
+                startClient();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (SSLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread.setName("client");
+        thread.start();
+
+
+
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+
+        TestService testService = new TestServiceImpl();
+        testService.test();
+
+
+        thread.join();
+    }
+
+    private static void startClient() throws InterruptedException, SSLException {
         // Configure SSL.
         final SslContext sslCtx;
         if (SSL) {
             sslCtx = SslContextBuilder.forClient()
-                .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+                    .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
         } else {
             sslCtx = null;
         }
@@ -53,20 +81,20 @@ public final class ObjectEchoClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
-             .channel(NioSocketChannel.class)
-             .handler(new ChannelInitializer<SocketChannel>() {
-                @Override
-                public void initChannel(SocketChannel ch) throws Exception {
-                    ChannelPipeline p = ch.pipeline();
-                    if (sslCtx != null) {
-                        p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
-                    }
-                    p.addLast(
-                            new ObjectEncoder(),
-                            new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                            new ObjectEchoClientHandler());
-                }
-             });
+                    .channel(NioSocketChannel.class)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            if (sslCtx != null) {
+                                p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
+                            }
+                            p.addLast(
+                                    new ObjectEncoder(),
+                                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                    new ObjectEchoClientHandler());
+                        }
+                    });
 
             // Start the connection attempt.
             b.connect(HOST, PORT).sync().channel().closeFuture().sync();

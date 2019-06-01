@@ -3,19 +3,20 @@
  */
 package io.vilya.rpc.demo;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
  * @author erkea <erkea@vilya.io>
  *
  */
-public class ProviderInvocation {
+public class ProviderInvocation implements Serializable {
 	
 	private Long id;
 
-	private Class<?> type;
+	private String type;
 	
-	private Method method;
+	private String method;
 	
 	private Object[] args;
 
@@ -24,7 +25,7 @@ public class ProviderInvocation {
 	 * @param method
 	 * @param args
 	 */
-	public ProviderInvocation(Long id, Class<?> type, Method method, Object[] args) {
+	public ProviderInvocation(Long id, String type, String method, Object[] args) {
 		this.id = id;
 		this.type = type;
 		this.method = method;
@@ -41,14 +42,14 @@ public class ProviderInvocation {
 	/**
 	 * @return the type
 	 */
-	public Class<?> getType() {
+	public String getType() {
 		return type;
 	}
 
 	/**
 	 * @return the method
 	 */
-	public Method getMethod() {
+	public String getMethod() {
 		return method;
 	}
 

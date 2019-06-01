@@ -3,11 +3,13 @@
  */
 package io.vilya.rpc.demo;
 
+import java.io.Serializable;
+
 /**
  * @author erkea <erkea@vilya.io>
  *
  */
-public class CallResponse {
+public class CallResponse implements Serializable {
 	
 	private Long id;
 	
