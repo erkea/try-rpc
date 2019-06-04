@@ -1,10 +1,12 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.server;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import io.vilya.rpc.common.CallRequest;
 
 /**
  * @author erkea <erkea@vilya.io>
@@ -18,7 +20,7 @@ public class ProviderInvoker {
 		this.registry = registry;
 	}
 
-	public Object invoke(ProviderInvocation invocation) {
+	public Object invoke(CallRequest invocation) {
 		try {
 			Object object = registry.getObject(invocation.getType());
 			Method method = object.getClass().getMethod(invocation.getMethod());

@@ -13,25 +13,37 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.vilya.rpc.common.CallRequest;
+import io.vilya.rpc.common.CallResponse;
 
-public class ObjectEchoClientHandler extends ChannelInboundHandlerAdapter {
+/**
+ * Handles both client-side and server-side handler depending on which
+ * constructor was called.
+ */
+public class RpcServerHandler extends ChannelInboundHandlerAdapter {
 
-    @Override
-	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-    	Context.setContext(ctx);
-		super.handlerAdded(ctx);
+	private ProviderInvoker invoker;
+	
+	public RpcServerHandler(ProviderInvoker invoker) {
+		this.invoker = invoker;
 	}
-
+	
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    	if (msg instanceof CallResponse) {
-    		Context.onResponse((CallResponse) msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+    	if (msg instanceof CallRequest) {
+            CallRequest invocation = (CallRequest) msg;
+    		Object ret = invoker.invoke(invocation);
+    		CallResponse callResponse = new CallResponse();
+            callResponse.setId(invocation.getId());
+            callResponse.setData(ret);
+    		ctx.write(callResponse);
+    	} else {
+    		ctx.fireChannelRead(msg);
     	}
-    	super.channelRead(ctx, msg);
     }
 
     @Override

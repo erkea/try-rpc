@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.common;
 
 import java.io.Serializable;
 
@@ -11,9 +11,13 @@ import java.io.Serializable;
  */
 public class CallResponse implements Serializable {
 	
+	private static final long serialVersionUID = -8625276023797560662L;
+
 	private Long id;
 	
 	private Object data;
+	
+	private Throwable exception;
 
 	/**
 	 * @return the id
@@ -41,6 +45,20 @@ public class CallResponse implements Serializable {
 	 */
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	/**
+	 * @return the exception
+	 */
+	public Throwable getException() {
+		return exception;
+	}
+
+	/**
+	 * @param exception the exception to set
+	 */
+	public void setException(Throwable exception) {
+		this.exception = exception;
 	}
 	
 }

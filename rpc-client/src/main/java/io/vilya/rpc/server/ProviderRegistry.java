@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.server;
 
 import com.google.common.collect.ImmutableMap;
 

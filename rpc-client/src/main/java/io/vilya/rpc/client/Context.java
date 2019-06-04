@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.client;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.netty.channel.ChannelHandlerContext;
+import io.vilya.rpc.common.CallException;
+import io.vilya.rpc.common.CallRequest;
+import io.vilya.rpc.common.CallResponse;
 
 /**
  * TODO 临时
@@ -23,9 +26,6 @@ public class Context {
 
 	private static final ConcurrentHashMap<Long, CompletableFuture<CallResponse>> futureMap = new ConcurrentHashMap<>();
 	
-	/**
-	 * TODO netty多线程模型
-	 */
 	private static ChannelHandlerContext chc;
 	
 	private Context() {}
@@ -35,7 +35,7 @@ public class Context {
 		log.info("setContext: {}", context);
 	}
 	
-	public static Object request(ProviderInvocation invocation) {
+	public static Object request(CallRequest invocation) {
 		CompletableFuture<CallResponse> future = new CompletableFuture<>();
 		futureMap.put(invocation.getId(), future);
 		chc.writeAndFlush(invocation);

@@ -1,11 +1,11 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.client;
 
 import java.lang.reflect.Method;
 
-import io.vilya.rpc.demo.Context;
+import io.vilya.rpc.common.CallRequest;
 
 import com.google.common.reflect.AbstractInvocationHandler;
 import com.google.common.reflect.Reflection;
@@ -20,7 +20,7 @@ public class ProviderProxy {
 		return Reflection.newProxy(type, new AbstractInvocationHandler() {
 			@Override
 			protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-				return Context.request(new ProviderInvocation(1l, type.getName(), method.getName(), args));
+				return Context.request(new CallRequest(1l, type.getName(), method.getName(), args));
 			}
 		});
 	}

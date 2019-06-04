@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.client.sequence;
 
 import java.util.concurrent.atomic.AtomicLong;
 

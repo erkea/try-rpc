@@ -1,7 +1,7 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.client.sequence;
 
 /**
  * @author erkea <erkea@vilya.io>

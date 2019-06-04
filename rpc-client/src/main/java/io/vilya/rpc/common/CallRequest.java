@@ -1,17 +1,18 @@
 /**
  * 
  */
-package io.vilya.rpc.demo;
+package io.vilya.rpc.common;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 
 /**
  * @author erkea <erkea@vilya.io>
  *
  */
-public class ProviderInvocation implements Serializable {
+public class CallRequest implements Serializable {
 	
+	private static final long serialVersionUID = -1650625597080167305L;
+
 	private Long id;
 
 	private String type;
@@ -25,7 +26,7 @@ public class ProviderInvocation implements Serializable {
 	 * @param method
 	 * @param args
 	 */
-	public ProviderInvocation(Long id, String type, String method, Object[] args) {
+	public CallRequest(Long id, String type, String method, Object[] args) {
 		this.id = id;
 		this.type = type;
 		this.method = method;
