@@ -3,7 +3,7 @@
  */
 package io.vilya.rpc.demo.consumer;
 
-import io.vilya.rpc.client.ProviderProxy;
+import io.vilya.rpc.client.ConsumerContext;
 import io.vilya.rpc.demo.provider.LocationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +18,11 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public void test() {
-		LocationProvider locationProvider = ProviderProxy.newProxy(LocationProvider.class);
-		log.info(locationProvider.getLocation());
+		ConsumerContext context = new ConsumerContext();
+		context.start();
+		LocationProvider locationProvider = context.newProxy(LocationProvider.class);
+		String location = locationProvider.getLocation();
+		log.info(location);
 	}
 
 }

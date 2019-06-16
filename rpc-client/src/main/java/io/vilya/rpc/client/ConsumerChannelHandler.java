@@ -15,24 +15,30 @@
  */
 package io.vilya.rpc.client;
 
+import java.util.Objects;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.vilya.rpc.common.CallResponse;
+import io.vilya.rpc.client.ConsumerContext;
 
-public class RpcClientHandler extends ChannelInboundHandlerAdapter {
+public class ConsumerChannelHandler extends ChannelInboundHandlerAdapter {
 	
+	private ConsumerContext context;
 	
-	
-    @Override
+	public ConsumerChannelHandler(ConsumerContext context) {
+		this.context = Objects.requireNonNull(context, "context");
+	}
+
+	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-    	Context.setContext(ctx);
-		super.handlerAdded(ctx);
+		context.setNettyContext(ctx);
 	}
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     	if (msg instanceof CallResponse) {
-    		Context.onResponse((CallResponse) msg);
+    		context.onResponse((CallResponse) msg);
     	}
     	super.channelRead(ctx, msg);
     }
