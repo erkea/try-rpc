@@ -7,18 +7,14 @@
  */
 
 plugins {
-	id 'java-library'
+	id("java-library")
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'ch.qos.logback:logback-classic:1.2.3'
-    
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:28.0-jre'
-    implementation 'io.netty:netty-all:4.1.36.Final'
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("com.google.guava:guava:29.0-jre")
+    implementation("io.netty:netty-all:4.1.51.Final")
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation("junit:junit:4.12")
 }

@@ -6,7 +6,7 @@ package io.vilya.rpc.client.sequence;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class DefaultSequenceGenerator implements SequenceGenerator {

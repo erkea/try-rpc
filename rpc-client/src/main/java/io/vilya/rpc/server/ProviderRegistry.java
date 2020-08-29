@@ -9,7 +9,7 @@ import io.vilya.rpc.demo.provider.LocationProvider;
 import io.vilya.rpc.demo.provider.LocationProviderImpl;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class ProviderRegistry {

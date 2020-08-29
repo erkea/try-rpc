@@ -7,7 +7,7 @@ import io.vilya.rpc.demo.consumer.TestService;
 import io.vilya.rpc.demo.consumer.TestServiceImpl;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class Application {

@@ -6,7 +6,7 @@ package io.vilya.rpc.common;
 import java.io.Serializable;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class CallResponse implements Serializable {

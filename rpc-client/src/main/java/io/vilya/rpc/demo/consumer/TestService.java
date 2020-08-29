@@ -4,7 +4,7 @@
 package io.vilya.rpc.demo.consumer;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public interface TestService {

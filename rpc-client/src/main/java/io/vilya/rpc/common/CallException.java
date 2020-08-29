@@ -4,7 +4,7 @@
 package io.vilya.rpc.common;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class CallException extends RpcUncheckedException {

@@ -13,7 +13,7 @@ import io.vilya.rpc.client.sequence.SequenceGenerator;
 import io.vilya.rpc.common.CallRequest;
 
 /**
- * @author erkea <erkea@vilya.io>
+ * @author zhukuanxin <cafedada@vilya.io>
  *
  */
 public class ConsumerProxy extends AbstractInvocationHandler {
