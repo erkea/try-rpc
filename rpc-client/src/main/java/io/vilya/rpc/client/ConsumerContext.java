@@ -17,14 +17,12 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.reflect.Reflection;
 
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.vilya.rpc.common.CallException;
 import io.vilya.rpc.common.CallRequest;
 import io.vilya.rpc.common.CallResponse;
-import io.vilya.rpc.common.RpcUncheckedException;
 
 /**
  * @author zhukuanxin <cafedada@vilya.io>
